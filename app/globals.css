@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-green: #c8dbd2;
+  --color-blue: #367cf5;
+  --color-primary-blue: #2b59ff;
+  --color-orange: #ec4c27;
+  --color-light-pink: #eedcdb;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+}
+
+.max-width {
+  @apply max-w-[1440px] mx-auto;
+}
+
+.hero {
+  @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto;
+}
+
+.custom-btn {
+  @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none cursor-pointer;
+}

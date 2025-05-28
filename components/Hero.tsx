@@ -2,7 +2,6 @@
 
 import { Button, SplitContent } from "@/components";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 const Hero = () => {
   const router = useRouter();

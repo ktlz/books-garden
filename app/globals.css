@@ -19,9 +19,13 @@
 }
 
 .hero {
-  @apply flex flex-col gap-5 relative z-0 max-w-[1440px] mx-auto;
+  @apply flex flex-col gap-5 relative z-0 mx-auto;
 }
 
 .custom-btn {
   @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none cursor-pointer;
+}
+
+.split-content {
+  height: inherit;
 }

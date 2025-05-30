@@ -29,3 +29,11 @@
 .split-content {
   height: inherit;
 }
+
+.blue-gradient {
+  background: linear-gradient(
+    180deg,
+    rgba(151, 217, 247, 1) 0%,
+    rgba(255, 245, 245, 1) 100%
+  );
+}

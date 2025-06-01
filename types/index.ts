@@ -11,7 +11,11 @@ export interface ButtonProps {
 }
 
 export interface BookCardProps {
-  title?: string;
-  rating?: number;
-  author?: string;
+  title: string;
+  rating: number;
+  author: string;
+  status: string;
+  image: string;
+  coverColor: string;
+  description: string;
 }

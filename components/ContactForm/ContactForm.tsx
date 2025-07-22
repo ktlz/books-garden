@@ -52,22 +52,32 @@ export default function ContactForm() {
           Thank you! Your message has been sent 💌
         </div>
       )}
-      {error && <div className="mb-4 text-red-600">{error}</div>}
+      {error && (
+        <div role="alert" className="mb-4 text-red-600">
+          {error}
+        </div>
+      )}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <label className="block font-medium">Name</label>
+          <label htmlFor="name" className="block font-medium">
+            Name
+          </label>
           <input
             {...register("name")}
             className="w-full border p-2 rounded-md"
+            id="name"
           />
           {errors.name && (
             <p className="text-red-500 text-sm">{errors.name.message}</p>
           )}
         </div>
         <div>
-          <label className="block font-medium">Email</label>
+          <label htmlFor="email" className="block font-medium">
+            Email
+          </label>
           <input
             type="email"
+            id="email"
             {...register("email")}
             className="w-full border p-2 rounded-md"
           />
@@ -76,8 +86,11 @@ export default function ContactForm() {
           )}
         </div>
         <div>
-          <label className="block font-medium">Subject</label>
+          <label htmlFor="subject" className="block font-medium">
+            Subject
+          </label>
           <input
+            id="subject"
             {...register("subject")}
             className="w-full border p-2 rounded-md"
           />
@@ -86,8 +99,11 @@ export default function ContactForm() {
           )}
         </div>
         <div>
-          <label className="block font-medium">Message</label>
+          <label htmlFor="message" className="block font-medium">
+            Message
+          </label>
           <textarea
+            id="message"
             {...register("message")}
             className="w-full border p-2 rounded-md"
             rows={5}

@@ -8,6 +8,7 @@ import Carousel from "./Carousel";
 import Browse from "./Browse";
 import StarRating from "./StarRating";
 import BookSmall from "./BookSmall";
+import ContactForm from "./ContactForm";
 
 export {
   Navbar,
@@ -20,4 +21,5 @@ export {
   Browse,
   StarRating,
   BookSmall,
+  ContactForm,
 };

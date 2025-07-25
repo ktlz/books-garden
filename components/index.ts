@@ -9,6 +9,8 @@ import Browse from "./Browse";
 import StarRating from "./StarRating";
 import BookSmall from "./BookSmall";
 import ContactForm from "./ContactForm/ContactForm";
+import { Quote } from "./Quote/Quote";
+import BookPageClient from "./BookPageClient/BookPageClient";
 
 export {
   Navbar,
@@ -22,4 +24,6 @@ export {
   StarRating,
   BookSmall,
   ContactForm,
+  Quote,
+  BookPageClient,
 };

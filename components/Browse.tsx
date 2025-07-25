@@ -1,69 +1,85 @@
 "use client";
 
-import React, { useState } from "react";
-import { books } from "@/constants/books";
-import { BookSmall } from ".";
+import React, { useState, useEffect } from "react";
+import { BookSmall } from "@/components";
+import { Button } from "@/components";
+import { useRouter } from "next/navigation";
+import { useBooksStore } from "@/store/useBooksStore";
 
 const Browse = () => {
+  const router = useRouter();
   const [inputText, setInputText] = useState("");
+  const [ready, setReady] = useState(false);
 
-  let inputHandler = (e: any) => {
-    //convert input text to lower case
-    const lowerCase = e.target.value.toLowerCase();
-    setInputText(lowerCase);
-  };
+  const books = useBooksStore((state) => state.books);
+  const loadBooks = useBooksStore((state) => state.loadBooks);
 
-  const filteredData = books.filter((el) => {
-    //if no input the return the original
-    if (inputText === "") {
-      return el;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      loadBooks();
+      setReady(true);
     }
-    //return the item which contains the user input
-    else {
-      return el.title.toLowerCase().includes(inputText);
-    }
-  });
+  }, []);
+
+  useEffect(() => {
+    loadBooks();
+  }, []);
+
+  const filteredBooks = books.filter((book) =>
+    inputText === ""
+      ? true
+      : book.title.toLowerCase().includes(inputText.toLowerCase())
+  );
+
+  if (!ready) return <p>Loading...</p>;
 
   return (
-    <div className="mt-16 max-w-[1440px] mx-auto">
-      <h3 className="text-2xl font-bold mb-4">Browse</h3>
+    <section className="my-16 px-4 max-w-7xl mx-auto">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold">🔎 Browse</h2>
+        <Button
+          title="Add book"
+          variant="outline"
+          handleClick={() => router.push("/library/new")}
+        />
+      </div>
 
-      <form className="max-w-md mb-4">
+      <form className="max-w-md mb-6">
         <div className="relative">
-          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+          <input
+            type="search"
+            onChange={(e) => setInputText(e.target.value)}
+            placeholder="Search by title..."
+            className="w-full py-3 pl-10 pr-4 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
+          />
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
             <svg
-              className="w-4 h-4 text-gray-500 dark:text-gray-400"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
+              className="w-5 h-5"
               fill="none"
-              viewBox="0 0 20 20"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
             >
               <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-4.35-4.35M16 10a6 6 0 11-12 0 6 6 0 0112 0z"
               />
             </svg>
           </div>
-          <input
-            type="search"
-            onChange={inputHandler}
-            id="default-search"
-            className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search..."
-            required
-          />
         </div>
       </form>
 
-      <div className="flex flex-wrap gap-4">
-        {filteredData.map((book, id) => {
-          return <BookSmall key={id} {...book} />;
-        })}
-      </div>
-    </div>
+      {filteredBooks.length === 0 ? (
+        <p className="text-gray-500 text-sm">No results found.</p>
+      ) : (
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {filteredBooks.map((book: any, id: any) => (
+            <BookSmall key={id} {...book} />
+          ))}
+        </div>
+      )}
+    </section>
   );
 };
 

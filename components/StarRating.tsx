@@ -13,7 +13,7 @@ const StarRating: React.FC<StarRatingProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`flex gap-1 ${className}`}>
+    <div className={`flex justify-center gap-1 ${className}`}>
       {Array.from({ length: 5 }, (_, index) => (
         <FaStar
           key={index}

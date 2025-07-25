@@ -1,29 +1,14 @@
-"use client";
-
-import { Button, SplitContent } from "@/components";
-import { useRouter } from "next/navigation";
+import { SplitContent, Quote } from "@/components";
 
 const Hero = () => {
-  const router = useRouter();
-
-  const handleNavigation = () => {
-    router.push("/library");
-  };
   return (
-    <div className="hero mt-32 w-full h-screen">
-      <div className="mx-auto flex flex-col text-center">
-        <h1 className="hero__title max-w-[600px] mb-16">
-          Discover a world beyond imagination. Dive into our garden of
-          stories—your next great read awaits.
-        </h1>
-        {/* <Button
-          title="Go to library"
-          handleClick={handleNavigation}
-          containerStyles="bg-white rounded-full mt-4"
-        /> */}
-      </div>
+    <section className="max-w-auto mx-auto px-4">
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+        Welcome to ReadTrack!
+      </h1>
+      <Quote />
       <SplitContent />
-    </div>
+    </section>
   );
 };
 

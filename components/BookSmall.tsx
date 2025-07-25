@@ -1,7 +1,10 @@
+"use client";
+
 import React from "react";
 import { BookCardProps } from "@/types";
 import { StarRating } from "@/components";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const BookSmall = ({
   title,
@@ -10,19 +13,27 @@ const BookSmall = ({
   image,
   coverColor,
 }: BookCardProps) => {
+  const router = useRouter();
+  const slug = title.toLowerCase().replace(/\s+/g, "-");
+
   return (
-    <div className="flex gap-2 book-card p-4 rounded-md  mr-4 w-3xs">
+    <div
+      onClick={() => router.push(`/library/${slug}`)}
+      className="flex items-start gap-4 p-4 rounded-lg shadow-sm bg-white hover:shadow-md transition w-full max-w-sm"
+    >
       <Image
         src={image}
-        alt="logo"
-        width={100}
-        height={200}
-        className="object-fit mx-auto"
+        alt={title}
+        width={80}
+        height={120}
+        className="rounded object-contain"
       />
-      <div>
-        <h3 className="text-md  font-bold">{title}</h3>
-        <p className="text-sm mt-2">by {author}</p>
-        <StarRating color={coverColor} rating={rating} className="mt-2" />
+      <div className="flex flex-col justify-between">
+        <div>
+          <h3 className="text-base font-semibold text-gray-800">{title}</h3>
+          <p className="text-sm text-gray-600 mt-1">by {author}</p>
+        </div>
+        <StarRating rating={rating} color={coverColor} className="mt-2" />
       </div>
     </div>
   );

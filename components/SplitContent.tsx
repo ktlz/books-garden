@@ -1,43 +1,44 @@
 "use client";
 
 import React from "react";
-import { Button } from "@/components";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { Button } from "@/components";
 
 const SplitContent = () => {
   const router = useRouter();
-  const handleNavigation = () => {
-    router.push("/library");
-  };
+
   return (
-    <div className="w-full grid grid-cols-2 split-content">
-      <div className="bg-light-pink flex flex-col justify-center items-center gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 px-4 md:px-16 max-w-7xl mx-auto">
+      {/* Library block */}
+      <div className="bg-pink-100 flex flex-col justify-center items-center text-center rounded-2xl p-10 h-72 md:h-80 lg:h-96 shadow-md w-full">
         <Image
           src="/books-red.svg"
-          alt="logo"
+          alt="Books"
           width={200}
           height={200}
-          className="object-contain mx-auto"
+          className="object-contain mb-4"
         />
         <Button
           title="Go to library"
-          handleClick={handleNavigation}
-          containerStyles="border-solid border-1 border-black rounded-sm mx-auto"
+          handleClick={() => router.push("/library")}
+          variant="outline"
         />
       </div>
-      <div className="bg-orange flex flex-col justify-center items-center gap-4">
+
+      {/* Blog block */}
+      <div className="bg-orange-100 flex flex-col justify-center items-center text-center rounded-2xl p-10 h-72 md:h-80 lg:h-96 shadow-md w-full">
         <Image
           src="/books-spring.svg"
-          alt="logo"
+          alt="Blog"
           width={200}
           height={200}
-          className="object-contain"
+          className="object-contain mb-4"
         />
         <Button
           title="See blog"
-          handleClick={handleNavigation}
-          containerStyles="border-solid border-1 border-black rounded-sm mx-auto"
+          handleClick={() => router.push("/blog")}
+          variant="outline"
         />
       </div>
     </div>

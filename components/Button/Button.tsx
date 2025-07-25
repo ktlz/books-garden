@@ -1,36 +1,40 @@
 "use client";
 
-import Image from "next/image";
+import React from "react";
+import clsx from "clsx";
 
-import { ButtonProps } from "@/types";
+type ButtonProps = {
+  title: string;
+  handleClick?: () => void;
+  type?: "button" | "submit" | "reset";
+  variant?: "primary" | "outline" | "ghost";
+  className?: string;
+};
 
-const Button = ({
-  isDisabled,
-  btnType,
-  containerStyles,
-  textStyles,
+const Button: React.FC<ButtonProps> = ({
   title,
-  rightIcon,
   handleClick,
-}: ButtonProps) => (
-  <button
-    disabled={isDisabled}
-    type={btnType || "button"}
-    className={`custom-btn ${containerStyles}`}
-    onClick={handleClick}
-  >
-    <span className={`flex-1 ${textStyles}`}>{title}</span>
-    {rightIcon && (
-      <div className="relative w-6 h-6">
-        <Image
-          src={rightIcon}
-          alt="arrow_left"
-          fill
-          className="object-contain"
-        />
-      </div>
-    )}
-  </button>
-);
+  type = "button",
+  variant = "primary",
+  className = "",
+}) => {
+  const baseStyles = "px-6 py-2 rounded-md text-base font-medium transition";
+
+  const variants = {
+    primary: "bg-black text-white hover:bg-gray-800",
+    outline: "border border-black text-black hover:bg-black hover:text-white",
+    ghost: "text-black hover:underline",
+  };
+
+  return (
+    <button
+      type={type}
+      onClick={handleClick}
+      className={clsx(baseStyles, variants[variant], className)}
+    >
+      {title}
+    </button>
+  );
+};
 
 export default Button;

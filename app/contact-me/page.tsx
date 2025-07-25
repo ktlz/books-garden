@@ -2,9 +2,8 @@ import { Navbar, ForYouPanel, Browse, ContactForm } from "@/components";
 
 export default function Home() {
   return (
-    <main className="overflow-hidden h-screen">
-      <Navbar />
+    <section className="overflow-hidden h-screen">
       <ContactForm />
-    </main>
+    </section>
   );
 }

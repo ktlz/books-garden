@@ -1,30 +1,63 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { Menu, X } from "lucide-react";
 
-const Navbar = () => {
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <header className="w-full absolute z-10">
-      <nav className="max-w-[1440px] mx-auto flex justify-between items-center sm:px-16 px-6 py-4 bg-transparent">
-        <div className="flex gap-16">
-          <a href="/library">Library</a>
-          <a href="/blog">Blog</a>
-        </div>
-        <Link href="/" className="flex justify-center items-center">
-          <Image
-            src="/book-logo.svg"
-            alt="logo"
-            width={40}
-            height={40}
-            className="object-contain"
-          />
-        </Link>
-        <div className="flex gap-16">
-          <a href="/about">About</a>
-          <a href="/contact-me">Contact me</a>
-        </div>
-      </nav>
-    </header>
-  );
-};
+    <nav className="bg-white px-8 md:px-24 py-3 flex items-center justify-between sticky top-0 z-50">
+      <Link href="/" className="text-xl font-bold text-gray-800">
+        📚 BooksGarden
+      </Link>
 
-export default Navbar;
+      <button
+        className="sm:hidden"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="Toggle menu"
+      >
+        {isOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
+      <ul className={`sm:flex space-x-6 hidden`}>
+        <li>
+          <Link href="/" className="text-gray-700 hover:text-black">
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link href="/library" className="text-gray-700 hover:text-black">
+            Library
+          </Link>
+        </li>
+        <li>
+          <Link href="/contact-me" className="text-gray-700 hover:text-black">
+            Contact me
+          </Link>
+        </li>
+      </ul>
+
+      {isOpen && (
+        <ul className="absolute top-14 left-0 w-full bg-white px-8 py-2 sm:hidden space-y-2 shadow-md">
+          <li>
+            <Link href="/" onClick={() => setIsOpen(false)}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link href="/library" onClick={() => setIsOpen(false)}>
+              Library
+            </Link>
+          </li>
+          <li>
+            <Link href="/contact-me" onClick={() => setIsOpen(false)}>
+              Contact me
+            </Link>
+          </li>
+        </ul>
+      )}
+    </nav>
+  );
+}

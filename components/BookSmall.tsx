@@ -21,13 +21,16 @@ const BookSmall = ({
       onClick={() => router.push(`/library/${slug}`)}
       className="flex items-start gap-4 p-4 rounded-lg shadow-sm bg-white hover:shadow-md transition w-full max-w-sm"
     >
-      <Image
-        src={image}
-        alt={title}
-        width={80}
-        height={120}
-        className="rounded object-contain"
-      />
+      {image && (
+        <Image
+          src={image}
+          alt={title}
+          width={80}
+          height={120}
+          className="rounded object-contain"
+        />
+      )}
+
       <div className="flex flex-col justify-between">
         <div>
           <h3 className="text-base font-semibold text-gray-800">{title}</h3>

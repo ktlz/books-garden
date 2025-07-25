@@ -2,18 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { useBooksStore } from "@/store/useBooksStore";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   slug: string;
 };
 
 export default function BookPageClient({ slug }: Props) {
-  const { books, loadBooks } = useBooksStore((state) => ({
-    books: state.books,
-    loadBooks: state.loadBooks,
-  }));
+  const books = useBooksStore((s) => s.books);
+  const loadBooks = useBooksStore((s) => s.loadBooks);
   const [ready, setReady] = useState(false);
   const router = useRouter();
 
@@ -22,7 +21,7 @@ export default function BookPageClient({ slug }: Props) {
     setReady(true);
   }, []);
 
-  if (!ready) return <p className="px-4 py-10">Loading...</p>;
+  if (!ready) return <p className="p-4">Loading...</p>;
 
   const book = books.find(
     (b) => b.title.toLowerCase().replace(/\s+/g, "-") === slug
@@ -45,6 +44,7 @@ export default function BookPageClient({ slug }: Props) {
             className="rounded shadow-md"
           />
         )}
+
         <div>
           <h1 className="text-3xl font-bold">{book.title}</h1>
           <p className="text-lg text-gray-700 mt-2">by {book.author}</p>
@@ -53,6 +53,12 @@ export default function BookPageClient({ slug }: Props) {
           </p>
         </div>
       </div>
+      <Link
+        href={`/library/${slug}/edit`}
+        className="inline-block text-sm text-blue-600 hover:text-blue-800 hover:underline ml-auto mb-4 mt-4"
+      >
+        Edit
+      </Link>
     </div>
   );
 }

@@ -1,21 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { books as defaultBooks } from "@/constants/books";
+import { useBooksStore } from "@/store/useBooksStore";
 import { BookCardProps } from "@/types";
 
 export function useMergedBooks(): BookCardProps[] {
-  const [mergedBooks, setMergedBooks] = useState<BookCardProps[]>(defaultBooks);
+  const books = useBooksStore((state) => state.books);
+  const loadBooks = useBooksStore((state) => state.loadBooks);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem("customBooks");
-      const customBooks: BookCardProps[] = stored ? JSON.parse(stored) : [];
-      setMergedBooks([...defaultBooks, ...customBooks]);
-    } catch (err) {
-      console.error("Error loading customBooks from localStorage", err);
-    }
-  }, []);
+    loadBooks();
+    setReady(true);
+  }, [loadBooks]);
 
-  return mergedBooks;
+  return ready ? books : [];
 }

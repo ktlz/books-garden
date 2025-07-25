@@ -1,6 +1,7 @@
 "use client";
 
-import { create } from "zustand";
-import { booksStore } from "./booksStore";
+import { useStore } from "zustand";
+import { booksStore, BooksStore } from "./booksStore";
 
-export const useBooksStore = create(booksStore);
+export const useBooksStore = <T>(selector: (state: BooksStore) => T): T =>
+  useStore(booksStore, selector);

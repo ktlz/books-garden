@@ -9,23 +9,16 @@ import { useBooksStore } from "@/store/useBooksStore";
 const Browse = () => {
   const router = useRouter();
   const [inputText, setInputText] = useState("");
+  const books = useBooksStore((s) => s.books);
+  const loadBooks = useBooksStore((s) => s.loadBooks);
   const [ready, setReady] = useState(false);
-
-  const books = useBooksStore((state) => state.books);
-  const loadBooks = useBooksStore((state) => state.loadBooks);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      loadBooks();
-      setReady(true);
-    }
-  }, []);
 
   useEffect(() => {
     loadBooks();
+    setReady(true);
   }, []);
 
-  const filteredBooks = books.filter((book) =>
+  const filteredBooks = books.filter((book: any) =>
     inputText === ""
       ? true
       : book.title.toLowerCase().includes(inputText.toLowerCase())

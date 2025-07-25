@@ -1,27 +1,21 @@
-// import React from "react";
-// import { Carousel, BookCard } from "@/components";
-// import { books } from "@/constants/books";
+"use client";
 
-// const ForYouPanel = () => {
-//   return (
-//     <div className="mt-24 max-w-[1440px] mx-auto">
-//       <h1 className="mb-4 text-2xl font-bold">For You</h1>
-//       <Carousel>
-//         {books?.map((book: any, id: any) => {
-//           return <BookCard key={id} {...book} />;
-//         })}
-//       </Carousel>
-//     </div>
-//   );
-// };
-
-// export default ForYouPanel;
-
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Carousel, BookCard } from "@/components";
-import { books } from "@/constants/books";
+import { useBooksStore } from "@/store/useBooksStore";
 
 const ForYouPanel = () => {
+  const books = useBooksStore((s) => s.books);
+  const loadBooks = useBooksStore((s) => s.loadBooks);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    loadBooks();
+    setReady(true);
+  }, []);
+
+  if (!ready) return null;
+
   return (
     <section className="mt-8 px-4 max-w-7xl mx-auto">
       <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">

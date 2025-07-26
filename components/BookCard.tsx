@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { BookCardProps } from "@/types";
 import { StarRating } from "@/components";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { slugify } from "@/utils";
+import { BookFormData } from "@/validations/bookSchema";
 
 const BookCard = ({
   title,
@@ -13,7 +13,7 @@ const BookCard = ({
   rating,
   image,
   coverColor,
-}: BookCardProps) => {
+}: BookFormData) => {
   const router = useRouter();
   const slug = slugify(title).replace(/\s+/g, "-");
 
@@ -32,13 +32,15 @@ const BookCard = ({
 
       <div className="relative z-10 flex flex-col gap-4 h-full">
         <div className="mx-auto">
-          <Image
-            src={image}
-            alt={title}
-            width={120}
-            height={180}
-            className="rounded object-contain shadow-md"
-          />
+          {image && (
+            <Image
+              src={image}
+              alt={title}
+              width={120}
+              height={180}
+              className="rounded object-contain shadow-md"
+            />
+          )}
         </div>
         <div className="text-center mt-2">
           <h3 className="text-lg font-semibold">{title}</h3>

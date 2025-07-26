@@ -9,13 +9,3 @@ export interface ButtonProps {
   rightIcon?: string;
   handleClick?: MouseEventHandler<HTMLButtonElement>;
 }
-
-export interface BookCardProps {
-  title: string;
-  rating: number;
-  author: string;
-  status: string;
-  image: string;
-  coverColor: string;
-  description: string;
-}

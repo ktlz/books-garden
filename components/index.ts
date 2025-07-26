@@ -12,6 +12,7 @@ import ContactForm from "./ContactForm/ContactForm";
 import { Quote } from "./Quote/Quote";
 import BookPageClient from "./BookPageClient/BookPageClient";
 import EditBookPage from "./EditBookPage/EditBookPage";
+import FilterBar from "./FilterBar/FilterBar";
 
 export {
   Navbar,
@@ -28,4 +29,5 @@ export {
   Quote,
   BookPageClient,
   EditBookPage,
+  FilterBar,
 };

@@ -8,7 +8,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-sky-100 px-8 md:px-24 py-3 flex items-center justify-between sticky top-0 z-50">
+    <nav className="bg-blue-50 px-8 md:px-24 py-3 flex items-center justify-between sticky top-0 z-50">
       <Link href="/" className="text-xl font-bold text-gray-800">
         📚 BooksGarden
       </Link>

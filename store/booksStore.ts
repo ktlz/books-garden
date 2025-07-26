@@ -1,23 +1,41 @@
 import { createStore } from "zustand/vanilla";
-import { BookCardProps } from "@/types";
+import { BookFormData } from "@/validations/bookSchema";
 import { books as staticBooks } from "@/constants/books";
 
 export interface BooksStore {
-  books: BookCardProps[];
+  books: BookFormData[];
+  filters: {
+    status: "all" | "to-read" | "reading" | "read";
+    minRating: number;
+  };
+  setFilters: (filters: Partial<BooksStore["filters"]>) => void;
   loadBooks: () => void;
-  addBook: (book: BookCardProps) => void;
-  updateBook: (slug: string, updatedData: Partial<BookCardProps>) => void;
+  addBook: (book: BookFormData) => void;
+  updateBook: (slug: string, updatedData: Partial<BookFormData>) => void;
 }
 
 export const booksStore = createStore<BooksStore>((set) => ({
   books: [],
+
+  filters: {
+    status: "all",
+    minRating: 0,
+  },
+
+  setFilters: (newFilters) =>
+    set((state) => ({
+      filters: {
+        ...state.filters,
+        ...newFilters,
+      },
+    })),
 
   loadBooks: () => {
     if (typeof window === "undefined") return;
     try {
       const stored = localStorage.getItem("allBooks");
       if (stored) {
-        const allBooks: BookCardProps[] = JSON.parse(stored);
+        const allBooks: BookFormData[] = JSON.parse(stored);
         set({ books: allBooks });
       } else {
         localStorage.setItem("allBooks", JSON.stringify(staticBooks));
@@ -32,7 +50,7 @@ export const booksStore = createStore<BooksStore>((set) => ({
   addBook: (book) => {
     try {
       const stored = localStorage.getItem("allBooks");
-      const allBooks: BookCardProps[] = stored ? JSON.parse(stored) : [];
+      const allBooks: BookFormData[] = stored ? JSON.parse(stored) : [];
       const updated = [...allBooks, book];
       localStorage.setItem("allBooks", JSON.stringify(updated));
       set({ books: updated });
@@ -44,7 +62,7 @@ export const booksStore = createStore<BooksStore>((set) => ({
   updateBook: (slug, updatedData) => {
     try {
       const stored = localStorage.getItem("allBooks");
-      const allBooks: BookCardProps[] = stored ? JSON.parse(stored) : [];
+      const allBooks: BookFormData[] = stored ? JSON.parse(stored) : [];
 
       const updatedBooks = allBooks.map((book) => {
         const bookSlug = book.title.toLowerCase().replace(/\s+/g, "-");

@@ -5,6 +5,7 @@ import { useBooksStore } from "@/store/useBooksStore";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { slugify } from "@/utils";
 
 type Props = {
   slug: string;
@@ -23,9 +24,7 @@ export default function BookPageClient({ slug }: Props) {
 
   if (!ready) return <p className="p-4">Loading...</p>;
 
-  const book = books.find(
-    (b) => b.title.toLowerCase().replace(/\s+/g, "-") === slug
-  );
+  const book = books.find((b) => slugify(b.title) === slug);
 
   if (!book) {
     router.push("/404");

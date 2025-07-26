@@ -5,6 +5,7 @@ import { BookCardProps } from "@/types";
 import { StarRating } from "@/components";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { slugify } from "@/utils";
 
 const BookSmall = ({
   title,
@@ -14,7 +15,7 @@ const BookSmall = ({
   coverColor,
 }: BookCardProps) => {
   const router = useRouter();
-  const slug = title.toLowerCase().replace(/\s+/g, "-");
+  const slug = slugify(title).replace(/\s+/g, "-");
 
   return (
     <div

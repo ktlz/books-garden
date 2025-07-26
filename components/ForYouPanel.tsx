@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Carousel, BookCard } from "@/components";
 import { useBooksStore } from "@/store/useBooksStore";
+import { motion } from "framer-motion";
 
 const ForYouPanel = () => {
   const books = useBooksStore((s) => s.books);
@@ -21,9 +22,15 @@ const ForYouPanel = () => {
       <h2 className="text-2xl sm:text-3xl font-bold mb-6">For You</h2>
       <Carousel>
         {books.map((book: any, id: any) => (
-          <div className="my-2">
-            <BookCard key={id} {...book} />
-          </div>
+          <motion.div
+            key={id}
+            className="px-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: id * 0.05, duration: 0.4 }}
+          >
+            <BookCard {...book} />
+          </motion.div>
         ))}
       </Carousel>
     </section>

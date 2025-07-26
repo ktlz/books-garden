@@ -45,8 +45,8 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white rounded-2xl shadow-md mt-32">
-      <h2 className="text-xl font-bold mb-4">Contact Me</h2>
+    <div className="max-w-2xl mx-auto px-4 py-4">
+      <h1 className="text-2xl font-bold mb-6">Contact Me</h1>
       {submitted && (
         <div className="mb-4 text-green-600">
           Thank you! Your message has been sent 💌

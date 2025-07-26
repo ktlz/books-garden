@@ -1,4 +1,4 @@
-import { Navbar, ForYouPanel, Browse, ContactForm } from "@/components";
+import { ContactForm } from "@/components";
 
 export default function Home() {
   return (

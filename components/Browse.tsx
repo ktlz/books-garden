@@ -5,6 +5,7 @@ import { BookSmall, Button, FilterBar } from "@/components";
 import { useRouter } from "next/navigation";
 import { useBooksStore } from "@/store/useBooksStore";
 import { useFilteredBooks } from "@/hooks/useFilteredBooks";
+import { motion } from "framer-motion";
 
 const Browse = () => {
   const router = useRouter();
@@ -68,15 +69,18 @@ const Browse = () => {
         <FilterBar />
       </div>
 
-      {filteredBooks.length === 0 ? (
-        <p className="text-gray-500 text-sm">No results found.</p>
-      ) : (
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {filteredBooks.map((book: any, id: any) => (
-            <BookSmall key={id} {...book} />
-          ))}
-        </div>
-      )}
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {filteredBooks.map((book: any, id: number) => (
+          <motion.div
+            key={id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: id * 0.05, duration: 0.4 }}
+          >
+            <BookSmall {...book} />
+          </motion.div>
+        ))}
+      </div>
     </section>
   );
 };

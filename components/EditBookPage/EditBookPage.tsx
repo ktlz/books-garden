@@ -20,10 +20,13 @@ const EditBookPage = ({ slug }: Props) => {
   const [ready, setReady] = useState(false);
   const router = useRouter();
 
+  console.log(books);
+
   const {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<BookFormData>({
     resolver: zodResolver(bookSchema),
@@ -42,7 +45,14 @@ const EditBookPage = ({ slug }: Props) => {
     if (!ready) return;
     const book = books.find((b) => slugify(b.title) === slug);
     if (book) {
-      reset(book);
+      const normalized = {
+        ...book,
+        image:
+          typeof book.image === "string"
+            ? book.image
+            : (book.image as any).src || "",
+      };
+      reset(normalized);
     }
   }, [ready, books, slug, reset]);
 
@@ -55,7 +65,7 @@ const EditBookPage = ({ slug }: Props) => {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-4">
-      <h1 className="text-2xl font-bold mb-6">✏️ Edit Book</h1>
+      <h1 className="text-2xl font-bold mb-6">Edit Book</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Title */}
@@ -199,6 +209,13 @@ const EditBookPage = ({ slug }: Props) => {
             >
               {errors.image.message}
             </p>
+          )}
+          {watch("image") && (
+            <img
+              src={watch("image")}
+              alt="Cover preview"
+              className="mt-2 h-32 object-cover rounded border"
+            />
           )}
         </div>
 

@@ -7,7 +7,6 @@ export interface BooksStore {
   loadBooks: () => void;
   addBook: (book: BookCardProps) => void;
   updateBook: (slug: string, updatedData: Partial<BookCardProps>) => void;
-  removeBook: (slug: string) => void;
 }
 
 export const booksStore = createStore<BooksStore>((set) => ({
@@ -56,23 +55,6 @@ export const booksStore = createStore<BooksStore>((set) => ({
       set({ books: updatedBooks });
     } catch (error) {
       console.error("Failed to update book:", error);
-    }
-  },
-
-  removeBook: (slug) => {
-    try {
-      const stored = localStorage.getItem("allBooks");
-      const allBooks: BookCardProps[] = stored ? JSON.parse(stored) : [];
-
-      const updatedBooks = allBooks.filter((book) => {
-        const bookSlug = book.title.toLowerCase().replace(/\s+/g, "-");
-        return bookSlug !== slug;
-      });
-
-      localStorage.setItem("allBooks", JSON.stringify(updatedBooks));
-      set({ books: updatedBooks });
-    } catch (error) {
-      console.error("Failed to remove book:", error);
     }
   },
 }));

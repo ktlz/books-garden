@@ -1,4 +1,4 @@
-import { Navbar, ForYouPanel, Browse } from "@/components";
+import { ForYouPanel, Browse } from "@/components";
 
 export default function Home() {
   return (

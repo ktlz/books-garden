@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { slugify } from "@/utils";
+import { notFound } from "next/navigation";
 
 type Props = {
   slug: string;
@@ -26,9 +27,13 @@ export default function BookPageClient({ slug }: Props) {
 
   const book = books.find((b) => slugify(b.title) === slug);
 
+  // if (!book) {
+  //   router.push("/404");
+  //   return null;
+  // }
+
   if (!book) {
-    router.push("/404");
-    return null;
+    notFound();
   }
 
   return (
